@@ -1,0 +1,4 @@
+Kauno Zalgirio Arena;30000;true
+Lietuvos Ryto Arena;20000;false
+Air Canada Centre;50000;true
+Bilbao Arena;10000;false

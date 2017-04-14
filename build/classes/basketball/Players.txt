@@ -1,0 +1,7 @@
+Jonas;Valanciunas;24;8;Toronto Raptors;14000000
+Lebron;James;32;10;Cleveland Cavaliers;30000000
+Domantas;Sabonis;20;6;Thunder City;2000000
+Kyle;Lowry;30;9;Toronto Raptors;20000000
+Mindaugas;Kuzminskas;27;5;NY Knicks;8000000
+Mantas;Kalnietis;30;5;Emporio Armani;1000000
+Lukas;Lekavicius;22;6;Kauno Zalgiris;500000

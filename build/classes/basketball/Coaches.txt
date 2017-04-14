@@ -1,0 +1,6 @@
+David;Blatt;57;Istanbul Darussafaka;300000
+Tyronn;Lue;39;Cleveland Cavaliers;1000000
+Sarunas;Jasikevicius;41;Kauno Zalgiris;250000
+Dainius;Adomaitis;43;Klaipedos Neptunas;200000
+Steve;Kerr;51;Golden State Warriors;1200000
+Dwane;Casey;59;Toronto Raptors;800000
