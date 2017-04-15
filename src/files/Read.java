@@ -15,9 +15,9 @@ import java.util.*;
  */
 public class Read {
 	
-    static final String filename1 = "C:\\Users\\giedr\\Desktop\\Atsiskaitymui\\Objektinis\\Basketball\\src\\basketball\\Players.txt";	
-    static final String filename2 = "C:\\Users\\giedr\\Desktop\\Atsiskaitymui\\Objektinis\\Basketball\\src\\basketball\\Coaches.txt";
-    static final String filename3 = "C:\\Users\\giedr\\Desktop\\Atsiskaitymui\\Objektinis\\Basketball\\src\\basketball\\Arenas.txt";
+    static final String filename1 = "C:\\Users\\giedr\\Desktop\\mokslai\\Atsiskaitymui\\Objektinis\\Basketball\\src\\basketball\\Players.txt";	
+    static final String filename2 = "C:\\Users\\giedr\\Desktop\\mokslai\\Atsiskaitymui\\Objektinis\\Basketball\\src\\basketball\\Coaches.txt";
+    static final String filename3 = "C:\\Users\\giedr\\Desktop\\mokslai\\Atsiskaitymui\\Objektinis\\Basketball\\src\\basketball\\Arenas.txt";
     
     public Set<Player> getPlayersList() throws IOException {
         

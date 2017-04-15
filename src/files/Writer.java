@@ -14,8 +14,6 @@ public class Writer {
     
     private static final String fileName = ("C:\\Users\\giedr\\Desktop\\Atsiskaitymui\\Objektinis\\Basketball\\src\\basketball\\TeamDetails.txt");
     
-    public Writer(){}
-    
     public void toWrite(Team details){
        
         BufferedWriter bw = null;

@@ -26,53 +26,28 @@ public class Player {
         this.value = value;
     }
     
-    public Player(String name,String surname , int age, int rank, String team, int value, int shirtNum){
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.rank = rank;
-        this.team = team;
-        this.value = value;
-        this.shirtNum = shirtNum;
-    }
-    
     public Player(){}
     
     
-    //Setters and getters (Name,age,rank,team,value)
+    //Setters and getters
     
-    public String getName(){ //name
+    public String getName(){ 
        return name; 
-    }
-    
-    public void setName(String name){
-        this.name = name;
     }
     
     public String getSurname(){
         return surname;
     }
     
-    public void setSurname(String surname){
-        this.surname = surname;
-    }
-    public int getAge(){ //age
+    public int getAge(){ 
         return age;
     }
     
-    public void setAge(int age){
-        this.age = age;
-    }
-    
-    public int getRank(){ //rank
+    public int getRank(){ 
         return rank;
     }
     
-    public void setRank(int rank){
-        this.rank = rank;
-    }
-    
-    public String getTeam() { //team
+    public String getTeam() { 
         return team;
     }   
     
@@ -80,7 +55,7 @@ public class Player {
         this.team = team;
     }
     
-    public int getValue(){ //value
+    public int getValue(){ 
         return value;
     }
     

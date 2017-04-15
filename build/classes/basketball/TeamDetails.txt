@@ -1,4 +1,4 @@
 =======================YOUR TEAM=============================
 Player: Lukas Lekavicius
-Age: 22 || Player rank: 6 || Team: Team || Value: 500000$ || Shirt number: 2
+Age: 22 || Player rank: 6 || Team: Team' || Value: 500000$ || Shirt number: 2
 

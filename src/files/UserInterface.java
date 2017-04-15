@@ -1,7 +1,6 @@
 
 package files;
 
-//import static basketball.Team.recentGames;
 import basketball.Arena;
 import basketball.Coach;
 import basketball.Player;
@@ -32,7 +31,7 @@ public class UserInterface {
         Arena[] arenas = new Read().getArenaList();
                 
         inter.programStart(1,details);    
-        details.setTeam(sc1.nextLine());
+        details.setTeamName(sc1.nextLine());
         inter.programStart(2,details);
         inter.enterMoney(1);
         int money = sc1.nextInt();
@@ -78,13 +77,7 @@ public class UserInterface {
                             new UserInterface().rentingArena(arenas, details);
                         }
                         break;
-                  /*  case 8 :
-                        let = inter.checkTeam(details, let);
-                        if (let == true){
-                            recentGames(details);
-                        }  
-                        break;*/
-                      case 9 :
+                    case 8 :
                         end = true;
                         System.out.println("Execution finished.");
                         break;
@@ -101,7 +94,7 @@ public class UserInterface {
         if(i == 1){
             System.out.println("Enter your team's name: ");
         } else if(i == 2) {
-            System.out.println("Now your team is " + details.getTeam());
+            System.out.println("Now your team is " + details.getTeamName());
         } else if(i == 3) {
             System.out.println("You have " + details.getMoney() + "$.");
         }
@@ -118,8 +111,7 @@ public class UserInterface {
             System.out.println("**5 - Hiring coach**");
             System.out.println("**6 - Arenas for rent**");
             System.out.println("**7 - Renting arena**");
-            System.out.println("**8 - Recent games**");
-            System.out.println("**9 - End of program**");
+            System.out.println("**8 - End of program**");
             System.out.println("====================");
         }
     }
@@ -195,8 +187,8 @@ public class UserInterface {
         }
     }
     
-    public boolean checkTeam(Team details, boolean let){  ///Set<Player> players,
-        if(details.getPlayers().size() < 4 && details.getCoach().getName() != null){
+    public boolean checkTeam(Team details, boolean let){
+        if(details.getPlayers().size() < 4 && details.getCoach() != null){
             System.out.println("You don't have enough players.");
             System.out.println("");
             let = false;
@@ -270,18 +262,6 @@ public class UserInterface {
         System.out.println("Your money now: " + details.getMoney());
     }
     
-    public void printGames(int i){
-        if(i == 1){
-            System.out.println("=======Upcoming games========");
-        }
-    }
-    
-    public void printGames(int i, Team opponent, int day, int month){
-        if (i == 2) {
-            System.out.println(opponent + " vs You : " + day + "/" + month + "/2017" );
-        }
-    }
-    
     public void shirtError(){
         System.out.println("This shirt number is unavailable.");
     }
@@ -300,13 +280,13 @@ public class UserInterface {
         Player salable = null;
         String surname;
         
-        printer.buyingPrint(); //enter player's name
+        printer.buyingPrint();
         
         Scanner sc = new Scanner(System.in);
         surname = sc.nextLine();
         
         
-        for (Player player: list) {
+        for (Player player: list) {   //Checks if there is a player you want
             if(player != null){
                 if(player.getSurname().contains(surname))
                 {
@@ -317,18 +297,13 @@ public class UserInterface {
         }
         
         if (salable == null || !salable.getOnSale()){
-            printer.buyingPrint(1,surname,salable);
+            printer.buyingPrint(1,surname,salable);     //There's no such player
         } else
         {
-            printer.buyingPrint(2,surname,salable);
+            printer.buyingPrint(2,surname,salable);    //Do you really want to buy?...
             String ans = sc.nextLine();
             if(ans.equals("y")){
-                String name = salable.getName();
-                surname = salable.getSurname();
-                int age = salable.getAge();
-                int rank = salable.getRank();
-                String newTeam = details.getTeam();
-                int value = salable.getValue();
+                int value = salable.getValue(); 
                 if(details.getMoney() >= salable.getValue()){
                     printer.buyingPrint(3,surname,salable);
                     int shirtNum = sc.nextInt();
@@ -339,17 +314,10 @@ public class UserInterface {
                             return;
                         }
                     }
-                    for(Player player: list){
-                        if(salable.getSurname().equals(player.getSurname()))
-                        {
-                            player.setOnSale(false);
-                            break;                                             
-                        }
-                    }
-                    
-                    Player newPl = new Player(name,surname,age,rank,newTeam,value);
-                    newPl.setShirtNum(shirtNum);
-                    details.buyingPlayer(newPl);
+                    salable.setOnSale(false);
+                    salable.setShirtNum(shirtNum);
+                    salable.setTeam(details.getTeamName());
+                    details.buyingPlayer(salable);
                     
                     details.setMoney(value);
                     printer.printMoney(details);
@@ -368,10 +336,7 @@ public class UserInterface {
         Scanner sc = new Scanner(System.in);
         String surname;
         Coach hired = null;
-        String name;
-        String newTeam;
         int wage;
-        int age;
         
         print.hiringPrint();
         surname = sc.nextLine();
@@ -391,11 +356,7 @@ public class UserInterface {
             print.hiringPrint(2,surname,hired);
             String ans = sc.nextLine();
             if(ans.equals("y")){
-                name = hired.getName();
-                surname = hired.getSurname();
-                age = hired.getAge();
-                newTeam = details.getTeam();
-                wage = hired.getWage();
+                wage = hired.getWage(); 
                 
                 if(details.getMoney() >= hired.getWage()){
                     details.hiringCoach(hired);
@@ -419,18 +380,18 @@ public class UserInterface {
         String arenaName = sc.nextLine();
         
         
-        for (Arena gym: arenas) {
+        for (Arena gym: arenas) {                       
             if(gym.getNameAr().contains(arenaName))
             {
                 forRent = gym;
                 break;
             }
         }
-        if (forRent == null){
-            print.rentingPrint(1, arenaName, forRent);
+        if (forRent == null){                            
+            print.rentingPrint(1, arenaName, forRent);    
         } else
         {
-            print.rentingPrint(2,arenaName,forRent);
+            print.rentingPrint(2,arenaName,forRent);     
             
             if(forRent.getAvailable()){
                 
@@ -438,8 +399,6 @@ public class UserInterface {
                 String ans = sc.nextLine();
                 
                 if(ans.equals("y")){
-                    String name = forRent.getNameAr();
-                    boolean available = forRent.getAvailable();
                     int rentValue = forRent.getRentValue();
                 
                     if(details.getMoney() >= forRent.getRentValue()){
