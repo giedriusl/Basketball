@@ -31,12 +31,11 @@ public class GraphicalInterface extends JFrame {
         }); 
         
         p = new JPanel();
-        //p.setLayout(new GridLayout(4,1,2,2));
    
         p.setBackground(Color.GRAY);
         lab = new JLabel("", JLabel.CENTER);
         p2 = new JPanel();
-        //p.setLayout(new GridLayout(4,1,2,2));
+        
         p2.setBackground(Color.GRAY);
         f.add(lab);
         f.add(p);
@@ -58,7 +57,7 @@ public class GraphicalInterface extends JFrame {
         nameButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {     
             String name;
-            //name = enterTeamName(name);
+            
             try {
                 if (teamName.getText().matches(".*\\d.*") && teamName.getText() != null)
                 {
