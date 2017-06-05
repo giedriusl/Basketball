@@ -1,0 +1,4 @@
+=======================YOUR TEAM=============================
+Player: Jonas Valanciunas
+Age: 24 || Player rank: 8 || Team: Toronto Raptors || Value: 14000000$ || Shirt number: 55
+

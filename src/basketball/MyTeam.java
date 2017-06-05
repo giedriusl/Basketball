@@ -9,10 +9,10 @@ import java.util.Set;
  * @author Giedrius Lukocius
  */
 
-public class Team {
+public class MyTeam implements BasketballTeam {
     
     private String teamName;
-    private int money = 0; 
+    private long money = 0; 
     private Coach coach = null;
     private Arena arena = null;
     private Set<Player> players = new HashSet<Player>();
@@ -21,11 +21,11 @@ public class Team {
         this.money -= newValue;
     }
     
-    public void setFirstMoney(int newValue){
+    public void setFirstMoney(long newValue){
         this.money = newValue;
     }
     
-    public int getMoney(){
+    public long getMoney(){
         return money;
     }
     
@@ -35,11 +35,11 @@ public class Team {
     }   
     
     public void setTeamName(String name){
-       this.teamName = name;
+	this.teamName = name;
     }
     
     public Coach getCoach(){
-            return coach;
+        return coach;
     }
     
     public Arena getArena(){
@@ -49,16 +49,15 @@ public class Team {
     public Set<Player> getPlayers(){
         return players;
     }
-	
-    public boolean buyingPlayer(Player newPl){
+    
+    public boolean buyingPlayer(Player newPl){    //Buying
         return this.players.add(newPl);
     }
-    
-    public void hiringCoach(Coach coach) {
+    public void hiringCoach(Coach coach) {       //Hiring
         this.coach = coach;
     }
 	
-    public void rentingArena(Arena arena){
+    public void rentingArena(Arena arena){       //Renting
         this.arena = arena;
     }
 

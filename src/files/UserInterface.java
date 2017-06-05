@@ -4,10 +4,12 @@ package files;
 import basketball.Arena;
 import basketball.Coach;
 import basketball.Player;
-import basketball.Team;
+import basketball.MyTeam;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Set;
+import exceptions.InputExc;
+import gui.GraphicalInterface;
 
 /**
  *
@@ -15,30 +17,39 @@ import java.util.Set;
  */
 public class UserInterface {
     
+    MyTeam details;
+    Set<Player> list;
+    Read brAr;
+    Read brCo;
+    Read brPl;
+    Writer writer;
+    Coach[] coaches;
+    Arena[] arenas;
+    
     public void start() throws IOException{
+        
         
         boolean end = false;
         boolean let = true;
         
-        Scanner sc1 = new Scanner(System.in);
         
+        brPl = new Read("Players.txt");
+        brCo = new Read("Coaches.txt", "Coaches.txt");
+        brAr = new Read("Arenas.txt","Arenas.txt");
+		
         UserInterface inter = new UserInterface();
-        Team details = new Team();
-
-        Set<Player> list = new Read().getPlayersList();     //
-        Writer writer = new Writer();                      //
-        Coach[] coaches = new Read().getCoachesList();    //kur laikyti?????????
-        Arena[] arenas = new Read().getArenaList();
-                
-        inter.programStart(1,details);    
-        details.setTeamName(sc1.nextLine());
-        inter.programStart(2,details);
-        inter.enterMoney(1);
-        int money = sc1.nextInt();
-        details.setFirstMoney(money);
-        inter.programStart(3,details);
+        details = new MyTeam();
+        list = brPl.getPlayersList();     
+        writer = new Writer("TeamDetails.txt");                      
+        coaches = brCo.getCoachesList();    
+        arenas = brAr.getArenaList();
+        
+        GraphicalInterface gui = new GraphicalInterface();
+        gui.showTextField(details);
+        
+        Scanner sc1 = new Scanner(System.in);
      
-        while(end == false){
+        while(!end){
             
             inter.actions(1);
             Scanner enterInput = new Scanner(System.in);
@@ -60,7 +71,6 @@ public class UserInterface {
                         break;
                     case 3 :
                         inter.teamPlayers(details);
-                        writer.toWrite(details);
                         break;
                     case 4 :
                         inter.coachesList(coaches);
@@ -80,6 +90,7 @@ public class UserInterface {
                     case 8 :
                         end = true;
                         System.out.println("Execution finished.");
+			writer.toWrite(details);
                         break;
                     default :
                         System.out.println("Invalid decision.");
@@ -89,7 +100,23 @@ public class UserInterface {
         
     }
     
-    public void programStart(int i,Team details){
+	public String enterTeamName(Scanner sc){
+		String name = "";
+		boolean validInput = false;
+		while(!validInput) {
+			try {
+				if(sc.hasNextInt())
+					throw new InputExc("Wrong input. You need to enter correct name.");
+				name = sc.nextLine();
+				validInput = true;
+			} catch (InputExc e) {
+				System.out.println("Message: " + e.getMessage());
+				name = sc.nextLine();
+			}
+		}
+		return name;
+	}
+    public void programStart(int i,MyTeam details){
         
         if(i == 1){
             System.out.println("Enter your team's name: ");
@@ -132,7 +159,7 @@ public class UserInterface {
         for(Coach manager: coaches){
             
             System.out.println("Coach: " + manager.getName() + " " + manager.getSurname());
-            System.out.println("Age: " + manager.getAge() + " || Team: " + manager.getTeam() + " || Wage: " + manager.getWage() + "$");
+            System.out.println("Age: " + manager.getAge() + " || Team: " + manager.getTeam() + " || Value: " + manager.getValue() + "$");
             System.out.println("");
             
         }
@@ -165,7 +192,7 @@ public class UserInterface {
                 System.out.println("Are you sure you want to buy " + salable.getSurname() + "? " + "y/n");
                 break;
             case 3 :
-                System.out.println("Enter shirt number for " + surname);
+                System.out.println("Enter shirt number for " + salable.getName() + " " + salable.getSurname());
                 break;
         }
     }
@@ -181,21 +208,21 @@ public class UserInterface {
                 break;
             case 2 :
                 System.out.println("Player: " + hired.getName() + " " + hired.getSurname());
-                System.out.println("Age: " + hired.getAge() + " || Team: " + hired.getTeam() + " || Wage: " + hired.getWage() + "$");
+                System.out.println("Age: " + hired.getAge() + " || Team: " + hired.getTeam() + " || Value: " + hired.getValue() + "$");
                 System.out.println("Are you sure you want to hire " + surname + "? " + "y/n");  
                 break;
         }
     }
     
-    public boolean checkTeam(Team details, boolean let){
-        if(details.getPlayers().size() < 4 && details.getCoach() != null){
+    public boolean checkTeam(MyTeam details, boolean let){
+        if(details.getPlayers().size() < 3 && details.getCoach() != null){
             System.out.println("You don't have enough players.");
             System.out.println("");
             let = false;
-        } else if(details.getPlayers().size() >= 4 && details.getCoach().getName() == null) {
+        } else if(details.getPlayers().size() >= 3 && details.getCoach() == null) {
             System.out.println("You need to hire a coach.");
             let = false;
-        } else if(details.getPlayers().size() < 4 && details.getCoach().getName() == null) {
+        } else if(details.getPlayers().size() < 3 && details.getCoach() == null) {
             System.out.println("You need more players and a coach.");
             let = false;
         } else {
@@ -204,7 +231,7 @@ public class UserInterface {
         return let;
     }
     
-    public void teamPlayers(Team details){
+    public void teamPlayers(MyTeam details){
         System.out.println("==================YOUR TEAM=============================");
         for(Player player: details.getPlayers()){
             if(player != null){
@@ -215,7 +242,7 @@ public class UserInterface {
         }
         if(details.getCoach() != null){
             System.out.println("Coach: " + details.getCoach().getName() + " " + details.getCoach().getSurname());
-            System.out.println("Age: " + details.getCoach().getAge() + " || Team: " + details.getCoach().getTeam() + " || Wage: " + details.getCoach().getWage());
+            System.out.println("Age: " + details.getCoach().getAge() + " || Team: " + details.getCoach().getTeam() + " || Value: " + details.getCoach().getValue());
             System.out.println("");
         } else
         {
@@ -258,8 +285,8 @@ public class UserInterface {
         System.out.println("You don't have enough money!");
     }
     
-    public void printMoney(Team details){
-        System.out.println("Your money now: " + details.getMoney());
+    public void printMoney(MyTeam details){
+        System.out.println("Your money now: " + details.getMoney() + "$");
     }
     
     public void shirtError(){
@@ -271,7 +298,7 @@ public class UserInterface {
             System.out.println("Enter how much money you want.");
     }
     
-    public void buyingPlayer(Set<Player> list, Team details){
+    public void buyingPlayer(Set<Player> list, MyTeam details){
         
         UserInterface printer = new UserInterface();
         
@@ -330,13 +357,13 @@ public class UserInterface {
         }
     }
     
-    public void hiringCoach(Coach[] coaches, Team details){
+    public void hiringCoach(Coach[] coaches, MyTeam details){
         
         UserInterface print = new UserInterface();
         Scanner sc = new Scanner(System.in);
         String surname;
         Coach hired = null;
-        int wage;
+        int value;
         
         print.hiringPrint();
         surname = sc.nextLine();
@@ -356,11 +383,11 @@ public class UserInterface {
             print.hiringPrint(2,surname,hired);
             String ans = sc.nextLine();
             if(ans.equals("y")){
-                wage = hired.getWage(); 
+                value = hired.getValue(); 
                 
-                if(details.getMoney() >= hired.getWage()){
+                if(details.getMoney() >= hired.getValue()){
                     details.hiringCoach(hired);
-                    details.setMoney(wage);
+                    details.setMoney(value);
                     print.printMoney(details);
                 } else
                 {
@@ -370,7 +397,7 @@ public class UserInterface {
         }
     }
     
-    public void rentingArena(Arena[] arenas,Team details){
+    public void rentingArena(Arena[] arenas,MyTeam details){
         
         UserInterface print = new UserInterface();
         Arena forRent = null;

@@ -6,7 +6,7 @@ package basketball;
  * @author Giedrius Lukocius
  */
 
-public class Arena {
+public class Arena extends Gym{
     
     private String nameAr;   // Arena name
     private int rentValue;
@@ -22,6 +22,7 @@ public class Arena {
     
     //Setter and getters
     
+    @Override
     public String getNameAr(){
         return nameAr;
     }
@@ -38,6 +39,7 @@ public class Arena {
         this.rentValue = rentValue;
     }
     
+    @Override
     public boolean getAvailable(){
         return available;
     }

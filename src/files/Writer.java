@@ -2,7 +2,7 @@
 package files;
 
 import basketball.Player;
-import basketball.Team;
+import basketball.MyTeam;
 import java.io.*;
 import java.io.IOException;
 
@@ -12,50 +12,46 @@ import java.io.IOException;
  */
 public class Writer {
     
-    private static final String fileName = ("C:\\Users\\giedr\\Desktop\\Atsiskaitymui\\Objektinis\\Basketball\\src\\basketball\\TeamDetails.txt");
-    
-    public void toWrite(Team details){
-       
-        BufferedWriter bw = null;
-        FileWriter fw = null;
-       
+    BufferedWriter writer;
+	
+	public Writer(String name) throws IOException {
+		writer = new BufferedWriter(new FileWriter(name));
+	}
+	
+    public void toWrite(MyTeam details){
+
         try {
-            fw = new FileWriter(fileName);
-            bw = new BufferedWriter(fw);
            
-            bw.write("=======================YOUR TEAM=============================");
-            bw.newLine();
+            writer.write("=======================YOUR TEAM=============================");
+            writer.newLine();
             for(Player player: details.getPlayers()){
                 if(player != null){
-                    bw.write("Player: " + player.getName() + " " + player.getSurname());
-                    bw.newLine();
-                    bw.write("Age: " + player.getAge() + " || Player rank: " + player.getRank() + " || Team: " + player.getTeam() + " || Value: " + player.getValue() + "$" + " || Shirt number: " + player.getShirtNum());
-                    bw.newLine();
-		    bw.newLine();
+                    writer.write("Player: " + player.getName() + " " + player.getSurname());
+                    writer.newLine();
+                    writer.write("Age: " + player.getAge() + " || Player rank: " + player.getRank() + " || Team: " + player.getTeam() + " || Value: " + player.getValue() + "$" + " || Shirt number: " + player.getShirtNum());
+                    writer.newLine();
+		    writer.newLine();
                 }
             }
             if(details.getCoach() != null){
-                bw.write("Coach: " + details.getCoach().getName() + " " + details.getCoach().getSurname());
-                bw.write("Age: " + details.getCoach().getAge() + " || Team: " + details.getCoach().getTeam() + " || Wage: " + details.getCoach().getWage());
-                bw.newLine();
-		bw.newLine();
+                writer.write("Coach: " + details.getCoach().getName() + " " + details.getCoach().getSurname() + " ");
+                writer.write("Age: " + details.getCoach().getAge() + " || Team: " + details.getCoach().getTeam() + " || Value: " + details.getCoach().getValue());
+                writer.newLine();
+				writer.newLine();
             }
             if(details.getArena() != null){
-                bw.write("Arena: " + details.getArena().getNameAr());
-                bw.write("Available: " + details.getArena().getAvailable() + " || Rent value: " + details.getArena().getRentValue());
+                writer.write("Arena: " + details.getArena().getNameAr() + " ");
+                writer.write("Available: " + details.getArena().getAvailable() + " || Rent value: " + details.getArena().getRentValue());
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try{
-                if(bw != null)
-                    bw.close();
-           
-                if(fw != null)
-                    fw.close();
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
-        }
+         try{
+			if(writer != null)
+				writer.close();
+         } catch(IOException e) {
+              e.printStackTrace();
+         }
+		}
     }
 }
